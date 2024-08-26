@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gỗ Phương Đông</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../assets/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/css/toast@1.0.1/fuiToast.min.css">
+    <link rel="stylesheet" href="../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../assets/js/select.dataTables.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/js/toast@1.0.1/fuiToast.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg" />
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+</head>
+
+<body class="with-welcome-text">
+    <div class="container-scroller">
+
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
+                        data-bs-toggle="minimize">
+                        <span class="icon-menu"></span>
+                    </button>
+                </div>
+                <div>
+                    <a class="navbar-brand brand-logo" href="../Home.html">
+                        <img src="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg"
+                            alt="logo" />
+                        Gỗ Phương Đông
+                    </a>
+                    <a class="navbar-brand brand-logo-mini" href="../Home.html">
+                        <img src="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg"
+                            alt="logo" />
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Home.html">
+                            <i class="mdi mdi-grid-large menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Kho</li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="packing-list.html">
+                            <i class="menu-icon mdi mdi-layers-outline"></i>
+                            <span class="menu-title">Packing List</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="donhang.html">
+                            <i class="menu-icon mdi mdi-file-document"></i>
+                            <span class="menu-title">Đơn hàng</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="baogia.html">
+                            <i class="menu-icon mdi mdi-card-text-outline"></i>
+                            <span class="menu-title">Báo giá</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pxn.html">
+                            <i class="menu-icon mdi mdi-table"></i>
+                            <span class="menu-title">Phiếu nhập xuất</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Kiemtrago.html">
+                            <i class="menu-icon mdi mdi-card-text-outline"></i>
+                            <span class="menu-title">Kiểm tra gỗ</span>
+
+                        </a>
+                      
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="baocao.html">
+                            <i class="menu-icon mdi mdi-chart-line"></i>
+                            <span class="menu-title">Báo cáo kho</span>
+
+                        </a>
+
+                    </li>
+
+
+
+                </ul>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div id="fui-toast"></div>
+                                <div class="container mt-5">
+                                    <h1 class="mb-4">Kiểm tra Packing List</h1>
+                                    <div id="loadingMessage" class="alert alert-info">Đang tải dữ liệu...</div>
+                            
+                                    <div class="row">
+                                        <div class="col-md-4 mb-4">
+                                            <h2>Chọn Mã Kiện</h2>
+                                            <select id="maKienSelect" class="form-select mb-3">
+                                                <option value="">-- Chọn Mã Kiện --</option>
+                                            </select>
+                                            <div id="packingListInfo" class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Thông tin chi tiết</h5>
+                                                    <div id="packingListDetails"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h2>Form Kiểm tra</h2>
+                                            <form id="inspectionForm" class="form-container">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="ngayKiem" class="form-label">Ngày kiểm</label>
+                                                        <input type="date" class="form-control" id="ngayKiem" required>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="nguoiKiem" class="form-label">Người kiểm</label>
+                                                        <input type="text" class="form-control" id="nguoiKiem" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="soLuong" class="form-label">Số lượng</label>
+                                                        <select class="form-select" id="soLuong" required>
+                                                            <option value="">Chọn tình trạng số lượng</option>
+                                                            <option value="Đủ thanh, đủ phôi">Đủ thanh, đủ phôi</option>
+                                                            <option value="Đủ thanh, thiếu phôi">Đủ thanh, thiếu phôi</option>
+                                                            <option value="Thiếu thanh, đủ phôi">Thiếu thanh, đủ phôi</option>
+                                                            <option value="Thiếu thanh, thiếu phôi">Thiếu thanh, thiếu phôi</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="danhGiaChatLuong" class="form-label">Đánh giá chất lượng</label>
+                                                        <select class="form-select" id="danhGiaChatLuong" required>
+                                                            <option value="">Chọn đánh giá chất lượng</option>
+                                                            <option value="Đẹp">Đẹp</option>
+                                                            <option value="Xấu">Xấu</option>
+                                                            <option value="Bình thường">Bình thường</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="tinhTrangCuThe" class="form-label">Tình trạng cụ thể</label>
+                                                    <textarea class="form-control" id="tinhTrangCuThe" rows="2"></textarea>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="kienKhoLay" class="form-label">Kiện khó lấy</label>
+                                                        <select class="form-select" id="kienKhoLay" required>
+                                                            <option value="">Chọn tình trạng kiện</option>
+                                                            <option value="Có">Có</option>
+                                                            <option value="Không">Không</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="doAm" class="form-label">Độ ẩm</label>
+                                                        <select class="form-select" id="doAm" required>
+                                                            <option value="">Chọn tình trạng độ ẩm</option>
+                                                            <option value="Đạt">Đạt</option>
+                                                            <option value="Không đạt">Không đạt</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary mt-3">Lưu thông tin kiểm tra</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                            
+                                    <div id="dataTable" class="mt-5">
+                                        <h2>Dữ liệu đã nhập</h2>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã kiện</th>
+                                                    <th>Ngày kiểm</th>
+                                                    <th>Người kiểm</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Đánh giá chất lượng</th>
+                                                    <th>Tình trạng cụ thể</th>
+                                                    <th>Kiện khó lấy</th>
+                                                    <th>Độ ẩm</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="dataTableBody">
+                                                <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+                                            </tbody>
+                                        </table>
+                                        <button id="updateCLGO" class="btn btn-success mt-3">Cập nhật vào CLGO</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Modal -->
+
+
+                    <!-- content-wrapper ends -->
+                    <!-- partial:partials/_footer.html -->
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
+                                <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2024.
+                                    Ninh Phước.</span>
+                        </div>
+                    </footer>
+                    <!-- partial -->
+                </div>
+                <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+        <script src="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="../../assets/js/off-canvas.js"></script>
+        <script src="../../assets/js/template.js"></script>
+        <script src="../../assets/js/settings.js"></script>
+        <script src="../../assets/js/hoverable-collapse.js"></script>
+        <script src="../../assets/js/todolist.js"></script>
+
+
+        <script>
+            const region = 'www';
+            const appId = '4f1591d0-7cb3-4bc4-b063-9bdf55c0603d';
+            const accessKey = 'V2-ljmCX-OLf64-CUDQy-02Mer-472rS-YjzwE-hotrv-uxXsX';
+
+            function apiRequest(tableName, action, data) {
+                const apiUrl = `https://${region}.appsheet.com/api/v2/apps/${appId}/tables/${tableName}/Action`;
+                console.log('API Request:', { url: apiUrl, action, tableName, data });
+                return $.ajax({
+                    url: apiUrl,
+                    method: 'POST',
+                    headers: {
+                        'ApplicationAccessKey': accessKey,
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({
+                        Action: action,
+                        Properties: {
+                            Locale: 'vi-VN',
+                            Timezone: 'Asia/Ho_Chi_Minh'
+                        },
+                        ...data
+                    })
+                });
+            }
+
+            function loadData() {
+                showLoading();
+                apiRequest('PACKING LIST', 'Find', { Properties: { Selector: "Filter(PACKING LIST, true)" } })
+                    .then((response) => {
+                        if (response && Array.isArray(response) && response.length > 0) {
+                            populateMaKienSelect(response);
+                        } else if (response && response.Rows && Array.isArray(response.Rows) && response.Rows.length > 0) {
+                            populateMaKienSelect(response.Rows);
+                        } else {
+                            alert('Không có dữ liệu Packing List để hiển thị.');
+                        }
+                        hideLoading();
+                    }).catch(error => {
+                        console.error('Lỗi khi tải dữ liệu:', error);
+                        alert('Lỗi khi tải dữ liệu: ' + (error.responseJSON ? error.responseJSON.error : error.statusText));
+                        hideLoading();
+                    });
+            }
+
+            function populateMaKienSelect(data) {
+                const select = $('#maKienSelect');
+                data.forEach(item => {
+                    select.append($('<option>', {
+                        value: item['MÃ KIỆN NỘI BỘ'],
+                        text: item['MÃ KIỆN NỘI BỘ']
+                    }));
+                });
+
+                select.on('change', function () {
+                    const selectedMaKien = $(this).val();
+                    if (selectedMaKien) {
+                        const selectedItem = data.find(item => item['MÃ KIỆN NỘI BỘ'] === selectedMaKien);
+                        displayPackingListInfo(selectedItem);
+                    } else {
+                        $('#packingListInfo').hide();
+                    }
+                });
+            }
+
+            function displayPackingListInfo(item) {
+                const detailsDiv = $('#packingListDetails');
+                detailsDiv.empty();
+
+                const keysToDisplay = [
+                    'INVOICE',
+                    'TÊN NHÀ CUNG CẤP',
+                    'SỐ CONTAINER',
+                    'TÊN GỖ',
+                    'MÃ KIỆN NỘI BỘ',
+                    'KHỐI LƯỢNG',
+                    'SỐ THANH',
+                    'CHIỀU DÀI',
+                    'CHIỀU RỘNG',
+                    'MÃ KIỆN TRÊN PL',
+                    'Tình trạng kho'
+                ];
+
+                keysToDisplay.forEach(key => {
+                    if (item.hasOwnProperty(key)) {
+                        detailsDiv.append(`<p><strong>${key}:</strong> ${item[key]}</p>`);
+                    }
+                });
+
+                $('#packingListInfo').show();
+            }
+
+            function showLoading() {
+                $('#loadingMessage').show();
+            }
+
+            function hideLoading() {
+                $('#loadingMessage').hide();
+            }
+
+            function addDataToTable(data) {
+                const tableBody = $('#dataTableBody');
+                const newRow = $('<tr>');
+                newRow.append(`<td>${data.maKien}</td>`);
+                newRow.append(`<td>${data.ngayKiem}</td>`);
+                newRow.append(`<td>${data.nguoiKiem}</td>`);
+                newRow.append(`<td>${data.soLuong}</td>`);
+                newRow.append(`<td>${data.danhGiaChatLuong}</td>`);
+                newRow.append(`<td>${data.tinhTrangCuThe}</td>`);
+                newRow.append(`<td>${data.kienKhoLay}</td>`);
+                newRow.append(`<td>${data.doAm}</td>`);
+                tableBody.append(newRow);
+            }
+
+            function updateCLGO() {
+                const tableData = [];
+                $('#dataTableBody tr').each(function () {
+                    const row = $(this);
+                    const rowData = {
+                        'Mã kiện': row.find('td:eq(0)').text(),
+                        'Ngày kiểm': row.find('td:eq(1)').text(),
+                        'Người kiểm': row.find('td:eq(2)').text(),
+                        'Số lượng': row.find('td:eq(3)').text(),
+                        'Đánh giá chất lượng': row.find('td:eq(4)').text(),
+                        'Tình trạng cụ thể': row.find('td:eq(5)').text(),
+                        'Kiện khó lấy': row.find('td:eq(6)').text(),
+                        'Độ ẩm': row.find('td:eq(7)').text()
+                    };
+                    tableData.push(rowData);
+                });
+
+                console.log('Dữ liệu sẽ được cập nhật:', JSON.stringify(tableData, null, 2));
+
+                if (tableData.length === 0) {
+                    alert('Không có dữ liệu để cập nhật. Vui lòng nhập dữ liệu trước.');
+                    return;
+                }
+
+                showLoading();
+                apiRequest('CLGO', 'Add', { Rows: tableData })
+                    .then((response) => {
+                        console.log('Phản hồi API:', JSON.stringify(response, null, 2));
+                        hideLoading();
+                        alert('Dữ liệu đã được cập nhật thành công vào CLGO.');
+                        // Xóa dữ liệu từ bảng sau khi cập nhật thành công
+                        $('#dataTableBody').empty();
+                    })
+                    .catch((error) => {
+                        console.error('Lỗi khi cập nhật dữ liệu:', error);
+                        let errorMessage = 'Lỗi khi cập nhật dữ liệu: ';
+                        if (error.responseJSON) {
+                            errorMessage += JSON.stringify(error.responseJSON, null, 2);
+                        } else if (error.responseText) {
+                            errorMessage += error.responseText;
+                        } else {
+                            errorMessage += error.statusText;
+                        }
+                        alert(errorMessage);
+                        hideLoading();
+                    });
+            }
+
+            $(document).ready(() => {
+                loadData();
+
+                $('#inspectionForm').on('submit', function (e) {
+                    e.preventDefault();
+                    const formData = {
+                        maKien: $('#maKienSelect').val(),
+                        ngayKiem: $('#ngayKiem').val(),
+                        nguoiKiem: $('#nguoiKiem').val(),
+                        soLuong: $('#soLuong').val(),
+                        danhGiaChatLuong: $('#danhGiaChatLuong').val(),
+                        tinhTrangCuThe: $('#tinhTrangCuThe').val(),
+                        kienKhoLay: $('#kienKhoLay').val(),
+                        doAm: $('#doAm').val()
+                    };
+                    addDataToTable(formData);
+                    this.reset();
+                    $('#maKienSelect').val('');
+                    $('#packingListInfo').hide();
+                });
+
+                $('#updateCLGO').on('click', updateCLGO);
+            });
+        </script>
+
+
+</body>
+
+</html>
