@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gỗ Phương Đông</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../assets/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/css/toast@1.0.1/fuiToast.min.css">
+    <link rel="stylesheet" href="../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../assets/js/select.dataTables.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/js/toast@1.0.1/fuiToast.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg" />
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+</head>
+
+<body class="with-welcome-text">
+    <div class="container-scroller">
+
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
+                        data-bs-toggle="minimize">
+                        <span class="icon-menu"></span>
+                    </button>
+                </div>
+                <div>
+                    <a class="navbar-brand brand-logo" href="../Home.html">
+                        <img src="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg"
+                            alt="logo" />
+                        Gỗ Phương Đông
+                    </a>
+                    <a class="navbar-brand brand-logo-mini" href="../Home.html">
+                        <img src="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg"
+                            alt="logo" />
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Home.html">
+                            <i class="mdi mdi-grid-large menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Kho</li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="packing-list.html">
+                            <i class="menu-icon mdi mdi-layers-outline"></i>
+                            <span class="menu-title">Packing List</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="donhang.html">
+                            <i class="menu-icon mdi mdi-file-document"></i>
+                            <span class="menu-title">Đơn hàng</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="baogia.html">
+                            <i class="menu-icon mdi mdi-card-text-outline"></i>
+                            <span class="menu-title">Báo giá</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pxn.html">
+                            <i class="menu-icon mdi mdi-table"></i>
+                            <span class="menu-title">Phiếu nhập xuất</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="baocao.html">
+                            <i class="menu-icon mdi mdi-chart-line"></i>
+                            <span class="menu-title">Báo cáo kho</span>
+
+                        </a>
+
+                    </li>
+
+
+
+                </ul>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div id="fui-toast"></div>
+                                <div class="card-body">
+                                    <div
+                                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                        <h4 class="card-title">Danh sách Báo Giá</h4>
+                                        <button type="button" id="refreshTable" class="btn btn-warning btn-icon-text">
+                                            <i class="ti-reload btn-icon-prepend"></i> Làm mới
+                                        </button>
+                                    </div>
+                                    <p>Dữ liệu được đồng bộ từ appsheet </p>
+                                    <div class="table-responsive">
+                                        <table class="table" id="quoteTable"  style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT (TỔNG)</th>
+                                                    <th>NHÂN VIÊN SALES PHỤ TRÁCH</th>
+                                                    <th>STT</th>
+                                                    <th>NGÀY BÁO GIÁ</th>
+                                                    <th>SỐ BÁO GIÁ</th>
+                                                    <th>TÊN VIẾT TẮT</th>
+                                                    <th>TÊN CÔNG TY</th>
+                                                    <th>Thao Tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="table-pagination">
+                                        <!-- DataTables sẽ tự động chèn phần phân trang vào đây -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal để hiển thị chi tiết báo giá -->
+                <div class="modal fade" id="quoteDetailModal" tabindex="-1" role="dialog" aria-labelledby="quoteDetailModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="quoteDetailModalLabel">Chi tiết Báo Giá</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table" style="width: 100%;" id="quoteDetailTable">
+                                        <thead>
+                                            <tr>
+                                                <th>STT (TỔNG)</th>
+                                                <th>NHÂN VIÊN SALES PHỤ TRÁCH</th>
+                                                <th>STT</th>
+                                                <th>SỐ BÁO GIÁ</th>
+                                                <th>MÃ SẢN PHẨM</th>
+                                                <th>TÊN SẢN PHẨM</th>
+                                                <th>ĐVT</th>
+                                                <th>MÃ KIỆN</th>
+                                                <th>SỐ CONTAINER</th>
+                                                <th>KHỐI LƯỢNG</th>
+                                                <th>SỐ THANH</th>
+                                                <th>CHIỀU DÀI</th>
+                                                <th>CHIỀU RỘNG</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Chi tiết báo giá sẽ được thêm vào đây bằng JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
+                            <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2024.
+                                Ninh Phước.</span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/template.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+
+
+    <script>
+        let quoteData = [];  // Biến toàn cục để lưu dữ liệu BG
+        let quoteDetailData = {};  // Biến toàn cục để lưu dữ liệu BG_DETAIL theo số báo giá
+        const region = 'www';
+        const appId = '53fdb32e-c5c3-411e-848e-401feafc4787';
+        const accessKey = 'V2-wHxkx-YOw3g-UiWe9-zXyzK-kG3wi-Prykh-uEHPN-5S8JM';
+
+
+        function apiRequest(tableName, action, data) {
+            const apiUrl = `https://${region}.appsheet.com/api/v2/apps/${appId}/tables/${tableName}/Action`;
+            return $.ajax({
+                url: apiUrl,
+                method: 'POST',
+                headers: {
+                    'ApplicationAccessKey': accessKey,
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                    Action: action,
+                    Properties: {
+                        Locale: 'vi-VN',
+                        Timezone: 'Asia/Ho_Chi_Minh'
+                    },
+                    ...data
+                })
+            });
+        }
+        // Hàm gọi API để lấy dữ liệu BG
+        function loadQuoteData() {
+            const resPromise = apiRequest('BG', 'Find', {
+                Rows: [],
+                Properties: {
+                    Selector: "Filter(BG, true)"
+                }
+            });
+
+            FuiToast.promise(
+                resPromise,
+                {
+                    loading: 'Đang tải dữ liệu Báo Giá...',
+                    success: (quoteResponse) => {
+                        if (Array.isArray(quoteResponse) && quoteResponse.length > 0) {
+                            quoteData = quoteResponse;  // Lưu dữ liệu vào biến toàn cục
+                            initializeQuoteTable(quoteData);  // Hiển thị bảng sử dụng dữ liệu từ biến
+                            return 'Dữ liệu Báo Giá đã tải xong!';
+                        } else {
+                            $('#quoteTable tbody').html('<tr><td colspan="8">Không có dữ liệu Báo Giá để hiển thị.</td></tr>');
+                            return 'Không có dữ liệu Báo Giá để hiển thị!';
+                        }
+                    },
+                    error: 'Có lỗi xảy ra khi tải dữ liệu Báo Giá!'
+                },
+                {
+                    isClose: true // Tự động đóng toast khi hoàn thành
+                }
+            );
+        }
+
+        // Hàm gọi API để lấy chi tiết báo giá theo số báo giá
+        function loadQuoteDetail(soBaoGia) {
+            // Kiểm tra nếu dữ liệu chi tiết đã được tải trước đó
+            if (quoteDetailData[soBaoGia]) {
+                initializeQuoteDetailTable(quoteDetailData[soBaoGia]);  // Sử dụng dữ liệu đã lưu
+                $('#quoteDetailModal').modal('show');
+                return;
+            }
+
+            const resPromise = apiRequest('BG_DETAIL', 'Find', {
+                Rows: [],
+                Properties: {
+                    Selector: `Filter(BG_DETAIL, [SỐ BÁO GIÁ] = '${soBaoGia}')`
+                }
+            });
+
+            resPromise.then(quoteDetailResponse => {
+                if (Array.isArray(quoteDetailResponse) && quoteDetailResponse.length > 0) {
+                    quoteDetailData[soBaoGia] = quoteDetailResponse;  // Lưu dữ liệu vào biến toàn cục
+                    initializeQuoteDetailTable(quoteDetailResponse);  // Hiển thị dữ liệu trong bảng
+                } else {
+                    $('#quoteDetailTable tbody').html('<tr><td colspan="13">Không có dữ liệu chi tiết cho Báo Giá này.</td></tr>');
+                }
+                $('#quoteDetailModal').modal('show');
+            }).catch(error => {
+                console.error('Error loading quote details:', error);
+            });
+        }
+
+        // Khởi tạo bảng danh sách báo giá
+        function initializeQuoteTable(data) {
+            $('#quoteTable').DataTable({
+                data: data,
+                columns: [
+                    { title: 'STT (TỔNG)', data: 'STT (TỔNG)' },
+                    { title: 'NHÂN VIÊN SALES PHỤ TRÁCH', data: 'NHÂN VIÊN SALES PHỤ TRÁCH' },
+                    { title: 'STT', data: 'STT' },
+                    { title: 'NGÀY BÁO GIÁ', data: 'NGÀY BÁO GIÁ' },
+                    { title: 'SỐ BÁO GIÁ', data: 'SỐ BÁO GIÁ' },
+                    { title: 'TÊN VIẾT TẮT', data: 'TÊN VIẾT TẮT' },
+                    { title: 'TÊN CÔNG TY', data: 'TÊN CÔNG TY' },
+                    {
+                        data: 'SỐ BÁO GIÁ',
+                        render: function (data) {
+                            return `<button class="btn btn-primary btn-sm" onclick="viewQuoteDetail('${data}')">Xem chi tiết</button>`;
+                        }
+                    }
+                ],
+                pagingType: "full_numbers",
+                pageLength: 10,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tất cả"]],
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
+                }
+            });
+        }
+
+        // Khởi tạo bảng chi tiết báo giá
+        function initializeQuoteDetailTable(data) {
+            $('#quoteDetailTable').DataTable({
+                data: data,
+                destroy: true,
+                columns: [
+                    { title: 'STT (TỔNG)', data: 'STT (TỔNG)' },
+                    { title: 'NHÂN VIÊN SALES PHỤ TRÁCH', data: 'NHÂN VIÊN SALES PHỤ TRÁCH' },
+                    { title: 'STT', data: 'STT' },
+                    { title: 'SỐ BÁO GIÁ', data: 'SỐ BÁO GIÁ' },
+                    { title: 'MÃ SẢN PHẨM', data: 'MÃ SẢN PHẨM' },
+                    { title: 'TÊN SẢN PHẨM', data: 'TÊN SẢN PHẨM' },
+                    { title: 'ĐVT', data: 'ĐVT' },
+                    { title: 'MÃ KIỆN', data: 'MÃ KIỆN' },
+                    { title: 'SỐ CONTAINER', data: 'SỐ CONTAINER' },
+                    { title: 'KHỐI LƯỢNG', data: 'KHỐI LƯỢNG' },
+                    { title: 'SỐ THANH', data: 'SỐ THANH' },
+                    { title: 'CHIỀU DÀI', data: 'CHIỀU DÀI' },
+                    { title: 'CHIỀU RỘNG', data: 'CHIỀU RỘNG' }
+                ],
+                pagingType: "full_numbers",
+                pageLength: 10,
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
+                }
+            });
+        }
+
+        // Hàm gọi khi nhấn nút "Xem chi tiết"
+        function viewQuoteDetail(soBaoGia) {
+            $('#quoteDetailModal').modal('show');
+            loadQuoteDetail(soBaoGia);
+        }
+
+        $(document).ready(function () {
+            loadQuoteData();  // Tải dữ liệu báo giá khi trang được tải
+
+            // Sự kiện click vào nút "Làm mới"
+            $('#refreshTable').on('click', function () {
+                $('#quoteTable').DataTable().destroy();
+                quoteData = [];  // Làm mới biến lưu dữ liệu
+                quoteDetailData = {};  // Làm mới dữ liệu chi tiết
+                loadQuoteData();  // Gọi lại API để tải dữ liệu
+            });
+        });
+    </script>
+</body>
+
+</html>

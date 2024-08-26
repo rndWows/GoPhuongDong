@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gỗ Phương Đông</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../assets/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/css/toast@1.0.1/fuiToast.min.css">
+    <link rel="stylesheet" href="../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../assets/js/select.dataTables.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/js/toast@1.0.1/fuiToast.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg" />
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+</head>
+
+<body class="with-welcome-text">
+    <div class="container-scroller">
+
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
+                        data-bs-toggle="minimize">
+                        <span class="icon-menu"></span>
+                    </button>
+                </div>
+                <div>
+                    <a class="navbar-brand brand-logo" href="../Home.html">
+                        <img src="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg"
+                            alt="logo" />
+                        Gỗ Phương Đông
+                    </a>
+                    <a class="navbar-brand brand-logo-mini" href="../Home.html">
+                        <img src="https://gophuongdong.com/wp-content/themes/app/assets/img/common/logo.svg"
+                            alt="logo" />
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Home.html">
+                            <i class="mdi mdi-grid-large menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Kho</li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="packing-list.html">
+                            <i class="menu-icon mdi mdi-layers-outline"></i>
+                            <span class="menu-title">Packing List</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="donhang.html">
+                            <i class="menu-icon mdi mdi-file-document"></i>
+                            <span class="menu-title">Đơn hàng</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="baogia.html">
+                            <i class="menu-icon mdi mdi-card-text-outline"></i>
+                            <span class="menu-title">Báo giá</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pxn.html">
+                            <i class="menu-icon mdi mdi-table"></i>
+                            <span class="menu-title">Phiếu nhập xuất</span>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="baocao.html">
+                            <i class="menu-icon mdi mdi-chart-line"></i>
+                            <span class="menu-title">Báo cáo kho</span>
+
+                        </a>
+
+                    </li>
+
+
+
+                </ul>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div id="fui-toast"></div>
+                                <div class="container-fluid">
+                                    <!-- Nút Thêm Phiếu Xuất Nhập -->
+                                    <div class="d-flex justify-content-end mb-3">
+                                        <button id="btnAddPXN" class="btn btn-primary">Thêm Phiếu Xuất Nhập</button>
+                                    </div>
+
+                                    <!-- Danh sách Phiếu Xuất Nhập -->
+                                    <div class="table-responsive mt-3">
+                                        <table class="table" id="pxnTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Key</th>
+                                                    <th>NGHIỆP VỤ</th>
+                                                    <th>SỐ PHIẾU</th>
+                                                    <th>NGÀY THÁNG</th>
+                                                    <th>TỪ ĐÂU</th>
+                                                    <th>ĐẾN ĐÂU</th>
+                                                    <th>DIỄN GIẢI</th>
+                                                    <th>CHỨNG TỪ ĐI KÈM</th>
+                                                    <th>MÃ KIỆN</th>
+                                                    <th>Hành Động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dữ liệu sẽ được tải từ API -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="pxnModal" tabindex="-1" aria-labelledby="pxnModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="pxnModalLabel">Thêm/Sửa Phiếu Xuất Nhập</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="modalPXNForm">
+                                        <input type="hidden" id="editingId">
+                                        <div class="form-group">
+                                            <label for="nghiepVu">NGHIỆP VỤ</label>
+                                            <input type="text" class="form-control" id="nghiepVu" name="nghiepVu"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="soPhieu">SỐ PHIẾU</label>
+                                            <input type="text" class="form-control" id="soPhieu" name="soPhieu"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ngayThang">NGÀY THÁNG</label>
+                                            <input type="date" class="form-control" id="ngayThang" name="ngayThang"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tuDau">TỪ ĐÂU</label>
+                                            <input type="text" class="form-control" id="tuDau" name="tuDau" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="denDau">ĐẾN ĐÂU</label>
+                                            <input type="text" class="form-control" id="denDau" name="denDau" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dienGiai">DIỄN GIẢI</label>
+                                            <input type="text" class="form-control" id="dienGiai" name="dienGiai"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="chungTu">CHỨNG TỪ ĐI KÈM</label>
+                                            <input type="text" class="form-control" id="chungTu" name="chungTu">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="maKien">MÃ KIỆN</label>
+                                            <input type="text" class="form-control" id="maKien" name="maKien">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- content-wrapper ends -->
+                    <!-- partial:partials/_footer.html -->
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
+                                <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2024.
+                                    Ninh Phước.</span>
+                        </div>
+                    </footer>
+                    <!-- partial -->
+                </div>
+                <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+        <script src="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="../../assets/js/off-canvas.js"></script>
+        <script src="../../assets/js/template.js"></script>
+        <script src="../../assets/js/settings.js"></script>
+        <script src="../../assets/js/hoverable-collapse.js"></script>
+        <script src="../../assets/js/todolist.js"></script>
+
+
+        <script>
+            let pxnData = [];  // Biến toàn cục lưu dữ liệu phiếu xuất nhập
+            const region = 'www';
+            const appId = '53fdb32e-c5c3-411e-848e-401feafc4787';
+            const accessKey = 'V2-wHxkx-YOw3g-UiWe9-zXyzK-kG3wi-Prykh-uEHPN-5S8JM';
+
+            // Hàm gọi API lấy dữ liệu phiếu xuất nhập
+            function loadPXNData() {
+                const resPromise = apiRequest('PNK', 'Find', {
+                    Rows: [],  // Để trống nếu bạn muốn tải tất cả dữ liệu
+                });
+
+                resPromise.then(response => {
+                    console.log('API Response:', response); // Kiểm tra phản hồi API
+                    if (Array.isArray(response) && response.length > 0) {
+                        pxnData = response;  // Lưu dữ liệu vào biến toàn cục
+                        initializePXNTable(pxnData);  // Hiển thị bảng sử dụng dữ liệu từ biến
+                    } else {
+                        $('#pxnTable tbody').html('<tr><td colspan="9">Không có dữ liệu phiếu xuất nhập để hiển thị.</td></tr>');
+                    }
+                }).catch(error => {
+                    console.error('Error loading PXN data:', error);
+                });
+            }
+            // Khi nhấn nút "Thêm Phiếu Xuất Nhập"
+            $('#btnAddPXN').on('click', function () {
+                // Reset form modal
+                $('#modalPXNForm')[0].reset();
+                $('#editingId').val('');  // Clear giá trị của editingId
+                $('#pxnModalLabel').text('Thêm Phiếu Xuất Nhập');  // Đổi tiêu đề modal
+                $('#pxnModal').modal('show');  // Hiển thị modal
+            });
+
+
+            // Hàm khởi tạo bảng DataTables
+            function initializePXNTable(data) {
+                $('#pxnTable').DataTable({
+                    data: data,
+                    destroy: true,
+                    columns: [
+                        { title: 'KEY', data: row => `${row['SỐ PHIẾU']}: ${row['MÃ KIỆN']}` },  // Hiển thị KEY dưới dạng SỐ PHIẾU: MÃ KIỆN
+                        { title: 'NGHIỆP VỤ', data: 'NGHIỆP VỤ' },
+                        { title: 'SỐ PHIẾU', data: 'SỐ PHIẾU' },
+                        { title: 'NGÀY THÁNG', data: 'NGÀY THÁNG' },
+                        { title: 'TỪ ĐÂU', data: 'TỪ ĐÂU' },
+                        { title: 'ĐẾN ĐÂU', data: 'ĐẾN ĐÂU' },
+                        { title: 'DIỄN GIẢI', data: 'DIỄN GIẢI' },
+                        { title: 'CHỨNG TỪ ĐI KÈM', data: 'CHỨNG TỪ ĐI KÈM' },
+                        { title: 'MÃ KIỆN', data: 'MÃ KIỆN' },
+                        {
+                            data: null,
+                            render: function (data, type, row) {
+                                const key = `${row['SỐ PHIẾU']}: ${row['MÃ KIỆN']}`;
+                                return `
+                                <button class="btn btn-warning btn-sm" onclick="editPXN('${key}')">Sửa</button>
+                                <button class="btn btn-danger btn-sm" onclick="deletePXN('${key}')">Xóa</button>`;
+                            }
+                        }
+                    ],
+                    pagingType: "full_numbers",
+                    pageLength: 10,
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tất cả"]],
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/vi.json'
+                    }
+                });
+            }
+            // Xử lý sự kiện submit form
+            $('#addPXNForm').on('submit', async function (e) {
+                e.preventDefault();
+
+                const formData = {
+                    'NGHIỆP VỤ': $('#nghiepVuAdd').val().trim(),
+                    'SỐ PHIẾU': $('#soPhieuAdd').val().trim(),
+                    'NGÀY THÁNG': $('#ngayThangAdd').val(),
+                    'TỪ ĐÂU': $('#tuDauAdd').val().trim(),
+                    'ĐẾN ĐÂU': $('#denDauAdd').val().trim(),
+                    'DIỄN GIẢI': $('#dienGiaiAdd').val().trim(),
+                    'CHỨNG TỪ ĐI KÈM': $('#chungTuAdd').val().trim(),
+                    'MÃ KIỆN': $('#maKienAdd').val().trim()
+                };
+
+                // Kiểm tra các trường bắt buộc
+                for (let key in formData) {
+                    if (!formData[key] && key !== 'CHỨNG TỪ ĐI KÈM') {
+                        FuiToast.info(`Vui lòng điền đầy đủ thông tin: ${key}`);
+                        return;
+                    }
+                }
+
+                try {
+                    const response = await apiRequest('PNK', 'Add', { Rows: formData });
+
+                    console.log('API Response:', response);
+
+                    if (response && response.Rows && response.Rows.length > 0) {
+                        FuiToast.success('Thêm phiếu xuất nhập thành công.');
+                        $('#addPXNForm')[0].reset();
+                        $('#list-tab').tab('show');
+                        loadPXNData();
+                    } else {
+                        throw new Error('Không nhận được dữ liệu phản hồi hợp lệ từ API');
+                    }
+                } catch (error) {
+                    console.error('Error during PXN addition process:', error);
+                    if (error.responseJSON) {
+                        console.error('API Error Details:', error.responseJSON);
+                    }
+                    FuiToast.error("Có lỗi xảy ra trong quá trình thêm phiếu xuất nhập: " + (error.responseJSON ? JSON.stringify(error.responseJSON) : error.message));
+                }
+            });
+            // Hàm chuyển đổi định dạng ngày từ dd/MM/yyyy sang yyyy-MM-dd
+            function convertDateFormat(dateStr) {
+                const [day, month, year] = dateStr.split('/');
+                return `${year}-${month}-${day}`; // Định dạng yyyy-MM-dd
+            }
+
+            function convertDateFormat(dateStr) {
+                const [day, month, year] = dateStr.split('/');
+                return `${year}-${month}-${day}`; // Định dạng yyyy-MM-dd
+            }
+            // Hàm chỉnh sửa phiếu xuất nhập
+            function editPXN(key) {
+                // Tách KEY thành SỐ PHIẾU và MÃ KIỆN
+                const [soPhieu, maKien] = key.split(': ').map(item => item.trim());
+                const pxn = pxnData.find(item => item['SỐ PHIẾU'] === soPhieu && item['MÃ KIỆN'] === maKien);
+                if (pxn) {
+                    $('#nghiepVu').val(pxn['NGHIỆP VỤ']);
+                    $('#soPhieu').val(pxn['SỐ PHIẾU']);
+                    $('#ngayThang').val(pxn['NGÀY THÁNG']);
+                    $('#tuDau').val(pxn['TỪ ĐÂU']);
+                    $('#denDau').val(pxn['ĐẾN ĐÂU']);
+                    $('#dienGiai').val(pxn['DIỄN GIẢI']);
+                    $('#chungTu').val(pxn['CHỨNG TỪ ĐI KÈM']);
+                    $('#maKien').val(pxn['MÃ KIỆN']);
+                    $('#editingId').val(key);  // Sử dụng KEY để chỉnh sửa
+                    $('#form-tab').tab('show');  // Chuyển sang tab form để chỉnh sửa
+                }
+            }
+
+            // Hàm thêm mới hoặc cập nhật phiếu xuất nhập
+            function savePXNData(formData) {
+                const action = formData.editingId ? 'Edit' : 'Add';
+                const resPromise = apiRequest('PNK', action, {
+                    Rows: [formData]  // Dữ liệu của phiếu xuất nhập cần thêm hoặc sửa
+                });
+
+                resPromise.then(response => {
+                    loadPXNData();  // Tải lại dữ liệu sau khi lưu
+                }).catch(error => {
+                    console.error(`Error ${action === 'Add' ? 'adding' : 'editing'} PXN data:`, error);
+                });
+            }
+
+            // Hàm xóa phiếu xuất nhập
+            function deletePXN(key) {
+                // Tách KEY thành SỐ PHIẾU và MÃ KIỆN
+                const [soPhieu, maKien] = key.split(': ').map(item => item.trim());
+                const resPromise = apiRequest('PNK', 'Delete', {
+                    Rows: [{
+                        'SỐ PHIẾU': soPhieu,  // Sử dụng SỐ PHIẾU và MÃ KIỆN để xóa
+                        'MÃ KIỆN': maKien
+                    }]
+                });
+
+                resPromise.then(response => {
+                    loadPXNData();  // Tải lại dữ liệu sau khi xóa
+                }).catch(error => {
+                    console.error('Error deleting PXN data:', error);
+                });
+            }
+
+            function apiRequest(tableName, action, data) {
+                const apiUrl = `https://${region}.appsheet.com/api/v2/apps/${appId}/tables/${tableName}/Action`;
+
+                console.log('API URL:', apiUrl); // Log URL để kiểm tra
+
+                const requestData = {
+                    Action: action,
+                    Properties: {
+                        Locale: 'vi-VN',
+                        Timezone: 'Asia/Ho_Chi_Minh'
+                    },
+                    Rows: Array.isArray(data.Rows) ? data.Rows : [data.Rows]
+                };
+
+                console.log('Request Data:', JSON.stringify(requestData)); // Log dữ liệu gửi đi
+
+                return $.ajax({
+                    url: apiUrl,
+                    method: 'POST',
+                    headers: {
+                        'ApplicationAccessKey': accessKey,
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify(requestData)
+                });
+            }
+            // Khi nhấn nút "Thêm mới"
+            $('#add-tab').on('click', function () {
+                // Reset form modal
+                $('#modalPXNForm')[0].reset();
+                $('#editingId').val('');  // Clear giá trị của editingId
+                $('#pxnModalLabel').text('Thêm Phiếu Xuất Nhập');  // Đổi tiêu đề modal
+                $('#pxnModal').modal('show');  // Hiển thị modal
+            });
+
+            // Khi nhấn nút "Sửa"
+            function editPXN(key) {
+                // Tách KEY thành SỐ PHIẾU và MÃ KIỆN
+                const [soPhieu, maKien] = key.split(': ').map(item => item.trim());
+                const pxn = pxnData.find(item => item['SỐ PHIẾU'] === soPhieu && item['MÃ KIỆN'] === maKien);
+                if (pxn) {
+                    $('#nghiepVu').val(pxn['NGHIỆP VỤ']);
+                    $('#soPhieu').val(pxn['SỐ PHIẾU']);
+                    $('#ngayThang').val(pxn['NGÀY THÁNG']);
+                    $('#tuDau').val(pxn['TỪ ĐÂU']);
+                    $('#denDau').val(pxn['ĐẾN ĐÂU']);
+                    $('#dienGiai').val(pxn['DIỄN GIẢI']);
+                    $('#chungTu').val(pxn['CHỨNG TỪ ĐI KÈM']);
+                    $('#maKien').val(pxn['MÃ KIỆN']);
+                    $('#editingId').val(key);  // Đặt giá trị của editingId để đánh dấu đang sửa
+                    $('#pxnModalLabel').text('Chỉnh sửa Phiếu Xuất Nhập');  // Đổi tiêu đề modal
+                    $('#pxnModal').modal('show');  // Hiển thị modal
+                }
+            }
+            $('#modalPXNForm').on('submit', async function (e) {
+                e.preventDefault();
+
+                const formData = {
+                    'NGHIỆP VỤ': $('#nghiepVu').val().trim(),
+                    'SỐ PHIẾU': $('#soPhieu').val().trim(),
+                    'NGÀY THÁNG': $('#ngayThang').val(),
+                    'TỪ ĐÂU': $('#tuDau').val().trim(),
+                    'ĐẾN ĐÂU': $('#denDau').val().trim(),
+                    'DIỄN GIẢI': $('#dienGiai').val().trim(),
+                    'CHỨNG TỪ ĐI KÈM': $('#chungTu').val().trim(),
+                    'MÃ KIỆN': $('#maKien').val().trim()
+                };
+
+                const editingId = $('#editingId').val();  // Lấy giá trị editingId để kiểm tra xem đang thêm hay sửa
+                const action = editingId ? 'Edit' : 'Add';
+
+                try {
+                    const response = await apiRequest('PNK', action, { Rows: [formData] });
+
+                    if (response && response.Rows && response.Rows.length > 0) {
+                        FuiToast.success(editingId ? 'Cập nhật phiếu xuất nhập thành công.' : 'Thêm phiếu xuất nhập thành công.');
+                        $('#pxnModal').modal('hide');  // Ẩn modal sau khi thêm/sửa thành công
+                        loadPXNData();  // Tải lại dữ liệu
+                    } else {
+                        throw new Error('Không nhận được dữ liệu phản hồi hợp lệ từ API');
+                    }
+                } catch (error) {
+                    FuiToast.error("Có lỗi xảy ra: " + error.message);
+                }
+            });
+
+            // Gọi khi trang được tải
+            $(document).ready(function () {
+                loadPXNData();  // Tải dữ liệu khi trang được tải
+            });
+        </script>
+
+
+
+</body>
+
+</html>

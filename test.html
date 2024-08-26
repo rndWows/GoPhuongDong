@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In tem từ API</title>
+</head>
+<body>
+    <h2>In tem nhãn</h2>
+    
+    <form id="printForm">
+        <label for="data">Nội dung in:</label><br>
+        <textarea id="data" name="data" rows="4" cols="50">Nội dung in của bạn ở đây</textarea><br><br>
+        
+        <label for="paperSize">Kích thước giấy:</label>
+        <select id="paperSize" name="paperSize">
+            <option value="A4">A4</option>
+            <option value="A5">A5</option>
+        </select><br><br>
+        
+        <label for="copies">Số bản in:</label>
+        <input type="number" id="copies" name="copies" value="1" min="1"><br><br>
+        
+        <input type="submit" value="In">
+    </form>
+
+    <script>
+        document.getElementById('printForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const data = document.getElementById('data').value;
+            const paperSize = document.getElementById('paperSize').value;
+            const copies = document.getElementById('copies').value;
+
+            const postData = {
+                data: data,
+                settings: {
+                    paper_size: paperSize,
+                    copies: copies
+                }
+            };
+
+            fetch('http://192.168.77.161:80/WebServices/Device/print', {  // Sử dụng IPv4 hoặc tên miền ở đây
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('In thành công!');
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Lỗi khi in!');
+            });
+        });
+    </script>
+</body>
+</html>

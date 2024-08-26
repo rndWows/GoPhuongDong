@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Phiếu Xuất Nhập</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/css/toast@1.0.1/fuiToast.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/lelinh014756/fui-toast-js@master/assets/js/toast@1.0.1/fuiToast.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <div id="loadingOverlay" style="display: none;">
+    <div class="spinner"></div>
+  </div>
+  <div id="fui-toast"></div>
+  
+  <main>
+    <div class="control-panel">
+      <div class="search-sort-container">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm theo số phiếu">
+        <select id="sortSelect">
+          <option value="date">Sắp xếp theo ngày (mới nhất)</option>
+          <option value="key">Sắp xếp theo Số Phiếu</option>
+        </select>
+      </div>
+      <div class="pagination-container">
+        <button id="prevPage"><i class="fas fa-chevron-left"></i></button>
+        <span id="pageInfo"></span>
+        <button id="nextPage"><i class="fas fa-chevron-right"></i></button>
+        <button id="refreshButton"><i class="fas fa-sync-alt"></i></button>
+      </div>
+    </div>
+
+    <div id="pxnContainer" class="pxn-container"></div>
+  </main>
+
+  <script>
+    const appId = '53fdb32e-c5c3-411e-848e-401feafc4787';
+    const accessKey = 'V2-wHxkx-YOw3g-UiWe9-zXyzK-kG3wi-Prykh-uEHPN-5S8JM';
+    const region = 'www';
+    const itemsPerPage = 10;
+    let pxnData = [];
+    let currentPage = 1;
+    let filteredPXNs = [];
+
+    // API request function
+    function apiRequest(tableName, action, data) {
+      const apiUrl = `https://${region}.appsheet.com/api/v2/apps/${appId}/tables/${tableName}/Action`;
+      return $.ajax({
+        url: apiUrl,
+        method: 'POST',
+        headers: {
+          'ApplicationAccessKey': accessKey,
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+          Action: action,
+          Properties: {
+            Locale: 'vi-VN',
+            Timezone: 'Asia/Ho_Chi_Minh'
+          },
+          ...data
+        })
+      });
+    }
+
+    function loadPXNData() {
+      showLoading();
+      apiRequest('PNK', 'Find', {
+        Rows: [],
+        Properties: { Selector: 'Filter(PNK, true)' }
+      })
+        .then(response => {
+          pxnData = response;
+          filteredPXNs = pxnData;
+          updatePagination();
+          renderPXNList();
+        })
+        .catch(error => {
+          console.error('Lỗi khi tải dữ liệu:', error);
+        })
+        .finally(hideLoading);
+    }
+
+    function renderPXNList() {
+      const pxnContainer = $('#pxnContainer');
+      pxnContainer.empty();
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, filteredPXNs.length);
+
+      for (let i = startIndex; i < endIndex; i++) {
+        const pxn = filteredPXNs[i];
+        const pxnItem = $(`
+          <div class="pxn-item">
+            <h2>Số Phiếu: ${pxn['SỐ PHIẾU']}</h2>
+            <p>Ngày Tháng: ${pxn['NGÀY THÁNG']}</p>
+            <p>Diễn Giải: ${pxn['DIỄN GIẢI']}</p>
+            <p>Mã Kiện: ${pxn['MÃ KIỆN']}</p>
+            <button class="edit-btn" data-id="${pxn['SỐ PHIẾU']}">Sửa</button>
+            <button class="delete-btn" data-id="${pxn['SỐ PHIẾU']}">Xóa</button>
+          </div>
+        `);
+
+        pxnContainer.append(pxnItem);
+      }
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredPXNs.length / itemsPerPage);
+      $('#pageInfo').text(`Trang ${currentPage} / ${totalPages}`);
+      $('#prevPage').prop('disabled', currentPage === 1);
+      $('#nextPage').prop('disabled', currentPage === totalPages);
+    }
+
+    function showLoading() {
+      $('#loadingOverlay').show();
+    }
+
+    function hideLoading() {
+      $('#loadingOverlay').hide();
+    }
+
+    // Event listeners
+    $(document).ready(() => {
+      loadPXNData();
+
+      $('#refreshButton').click(loadPXNData);
+
+      $('#searchInput').on('input', function () {
+        const searchTerm = $(this).val().toLowerCase();
+        filteredPXNs = pxnData.filter(pxn => pxn['SỐ PHIẾU'].toLowerCase().includes(searchTerm));
+        currentPage = 1;
+        updatePagination();
+        renderPXNList();
+      });
+
+      $('#sortSelect').change(function () {
+        const sortBy = $(this).val();
+        if (sortBy === 'date') {
+          filteredPXNs.sort((a, b) => new Date(b['NGÀY THÁNG']) - new Date(a['NGÀY THÁNG']));
+        } else {
+          filteredPXNs.sort((a, b) => a['SỐ PHIẾU'].localeCompare(b['SỐ PHIẾU']));
+        }
+        renderPXNList();
+      });
+
+      $('#prevPage').click(() => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPXNList();
+          updatePagination();
+        }
+      });
+
+      $('#nextPage').click(() => {
+        currentPage++;
+        renderPXNList();
+        updatePagination();
+      });
+
+      // Sửa phiếu xuất nhập
+      $(document).on('click', '.edit-btn', function () {
+        const soPhieu = $(this).data('id');
+        editPXN(soPhieu);
+      });
+
+      // Xóa phiếu xuất nhập
+      $(document).on('click', '.delete-btn', function () {
+        const soPhieu = $(this).data('id');
+        if (confirm(`Bạn có chắc muốn xóa phiếu ${soPhieu}?`)) {
+          deletePXN(soPhieu);
+        }
+      });
+    });
+
+    function editPXN(soPhieu) {
+      const pxn = pxnData.find(item => item['SỐ PHIẾU'] === soPhieu);
+      if (pxn) {
+        // Điền dữ liệu lên form chỉnh sửa
+        // Code xử lý dữ liệu lên form ở đây (giả sử bạn có một modal hoặc form chỉnh sửa)
+        alert('Sửa phiếu ' + soPhieu);
+      }
+    }
+
+    function deletePXN(soPhieu) {
+      showLoading();
+      apiRequest('PNK', 'Delete', {
+        Rows: [{ 'SỐ PHIẾU': soPhieu }]
+      })
+        .then(() => {
+          FuiToast.success('Xóa thành công!');
+          loadPXNData();
+        })
+        .catch(error => {
+          console.error('Lỗi khi xóa dữ liệu:', error);
+          FuiToast.error("Có lỗi xảy ra, vui lòng thử lại.");
+        })
+        .finally(hideLoading);
+    }
+  </script>
+</body>
+
+</html>
